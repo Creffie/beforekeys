@@ -16,8 +16,7 @@
     }
 
     html, body {
-      height: 100%;
-      overflow: hidden;
+      min-height: 100%;
     }
 
     body {
@@ -29,6 +28,17 @@
       justify-content: center;
       background: #faf6f1;
       position: relative;
+      padding: 60px 0;
+    }
+
+    .cards {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 28px;
+      width: 100%;
     }
 
     /* Warm background gradient */
@@ -59,7 +69,6 @@
     /* Glass card */
     .card {
       position: relative;
-      z-index: 2;
       width: 90%;
       max-width: 440px;
       padding: 52px 44px;
@@ -168,7 +177,6 @@
       letter-spacing: 0.02em;
       text-decoration: none;
       transition: all 0.3s ease;
-      margin-bottom: 32px;
     }
 
     .email-btn:hover {
@@ -177,6 +185,51 @@
       transform: translateY(-1px);
       box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
     }
+
+    /* Section label */
+    .section-label {
+      font-size: 0.62rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      color: #a89d92;
+      margin-bottom: 20px;
+    }
+
+    /* Project name */
+    .project-name {
+      font-family: 'Instrument Serif', serif;
+      font-weight: 400;
+      font-size: 1.5rem;
+      letter-spacing: -0.01em;
+      color: #2a2520;
+      margin-bottom: 6px;
+    }
+
+    /* Project description */
+    .project-desc {
+      font-size: 0.82rem;
+      font-weight: 300;
+      color: #8a7e72;
+      margin-bottom: 24px;
+    }
+
+    /* CTA text */
+    .cta-text {
+      font-size: 0.92rem;
+      font-weight: 300;
+      color: #6b6058;
+      margin-bottom: 20px;
+    }
+
+    /* Second card fade delays */
+    .card:nth-child(2) .fade-item:nth-child(1) { animation-delay: 1.2s; }
+    .card:nth-child(2) .fade-item:nth-child(2) { animation-delay: 1.35s; }
+    .card:nth-child(2) .fade-item:nth-child(3) { animation-delay: 1.5s; }
+    .card:nth-child(2) .fade-item:nth-child(4) { animation-delay: 1.65s; }
+    .card:nth-child(2) .fade-item:nth-child(5) { animation-delay: 1.8s; }
+    .card:nth-child(2) .fade-item:nth-child(6) { animation-delay: 1.95s; }
+    .card:nth-child(2) .fade-item:nth-child(7) { animation-delay: 2.1s; }
 
     /* Launching soon */
     .launching {
@@ -206,6 +259,10 @@
 
     /* Mobile */
     @media (max-width: 520px) {
+      body {
+        padding: 40px 0;
+      }
+
       .card {
         padding: 40px 28px;
         border-radius: 20px;
@@ -230,14 +287,26 @@
   <div class="bg"></div>
   <div class="grain"></div>
 
-  <div class="card">
-    <div class="fade-item emoji">&#x1F511;</div>
-    <h1 class="fade-item heading">Before <em>Keys</em></h1>
-    <p class="fade-item tagline">Social media agency for new-build projects</p>
-    <div class="fade-item divider"></div>
-    <p class="fade-item body-text">We craft the story, strategy and content that sells homes before the first key is handed over.</p>
-    <div class="fade-item"><a href="mailto:info@beforekeys.com" class="email-btn">info@beforekeys.com</a></div>
-    <div class="fade-item launching"><span class="pulse-dot"></span> Launching soon 2026</div>
+  <div class="cards">
+    <div class="card">
+      <div class="fade-item emoji">&#x1F511;</div>
+      <h1 class="fade-item heading">Before <em>Keys</em></h1>
+      <p class="fade-item tagline">Social media agency for new-build projects</p>
+      <div class="fade-item divider"></div>
+      <p class="fade-item body-text">We craft the story, strategy and content that sells homes before the first key is handed over.</p>
+      <div class="fade-item" style="margin-bottom: 32px"><a href="mailto:info@beforekeys.com" class="email-btn">info@beforekeys.com</a></div>
+      <div class="fade-item launching"><span class="pulse-dot"></span> Launching soon 2026</div>
+    </div>
+
+    <div class="card">
+      <p class="fade-item section-label">Current Projects</p>
+      <div class="fade-item divider"></div>
+      <h2 class="fade-item project-name">IJ Loods</h2>
+      <p class="fade-item project-desc">New-build loft apartments in Amsterdam</p>
+      <div class="fade-item divider"></div>
+      <p class="fade-item cta-text">Want to work together?</p>
+      <div class="fade-item"><a href="mailto:info@beforekeys.com" class="email-btn">Get in touch</a></div>
+    </div>
   </div>
 </body>
 </html>
