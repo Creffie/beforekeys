@@ -64,24 +64,68 @@
       text-align: center;
     }
 
-    /* ---- KEY ICON (SVG halftone style) — 3D spin ---- */
-    .key-icon-wrap {
-      perspective: 600px;
+    /* ---- EMBLEM: orbiting text ring + 3D spinning key ---- */
+    .emblem {
+      position: relative;
+      width: 280px;
+      height: 280px;
       margin-bottom: 48px;
       opacity: 0;
       animation: dotFadeIn 0.8s ease forwards 0.2s;
     }
 
+    /* Orbiting circular text */
+    .orbit-text {
+      position: absolute;
+      inset: 0;
+      animation: orbitSpin 20s linear infinite;
+    }
+
+    .orbit-text text {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      fill: var(--ink);
+    }
+
+    @keyframes orbitSpin {
+      0%   { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Dot ring around the orbit */
+    .dot-ring {
+      position: absolute;
+      inset: 20px;
+      animation: orbitDots 30s linear infinite reverse;
+    }
+
+    /* Key icon centered inside emblem */
+    .key-icon-wrap {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      perspective: 600px;
+    }
+
     .key-icon {
       width: 140px;
       height: 140px;
-      animation: spin3d 8s ease-in-out infinite;
+      animation: spin3d 4s linear infinite;
       transform-style: preserve-3d;
     }
 
     @keyframes spin3d {
       0%   { transform: rotateY(0deg); }
       100% { transform: rotateY(360deg); }
+    }
+
+    @keyframes orbitDots {
+      0%   { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
 
     /* ---- BRAND ---- */
@@ -156,7 +200,7 @@
     .halftone-divider span:nth-child(12) { opacity: 0.25; width: 3px; height: 3px; }
     .halftone-divider span:nth-child(13) { opacity: 0.15; width: 3px; height: 3px; }
 
-    /* ---- DESCRIPTION ---- */
+    /* ---- DESCRIPTION (cipher decode) ---- */
     .description {
       font-size: clamp(0.88rem, 2vw, 1.05rem);
       font-weight: 300;
@@ -171,6 +215,11 @@
     .description strong {
       font-weight: 500;
       color: var(--ink);
+    }
+
+    .cipher-char {
+      display: inline-block;
+      min-width: 0.25em;
     }
 
     /* ---- UNDER CONSTRUCTION — glitch scanner ---- */
@@ -197,7 +246,6 @@
       overflow: hidden;
     }
 
-    /* Scanning line effect */
     .construction::before {
       content: '';
       position: absolute;
@@ -221,7 +269,6 @@
       100% { left: 100%; }
     }
 
-    /* Corner marks */
     .construction .corner {
       position: absolute;
       width: 10px;
@@ -236,7 +283,6 @@
     .construction .corner.bl { bottom: -1px; left: -1px; border-bottom-width: 2px; border-left-width: 2px; }
     .construction .corner.br { bottom: -1px; right: -1px; border-bottom-width: 2px; border-right-width: 2px; }
 
-    /* Blinking cursor block */
     .construction .cursor-block {
       display: inline-block;
       width: 8px;
@@ -252,7 +298,6 @@
       50% { opacity: 0; }
     }
 
-    /* Halftone dots around badge */
     .construction-dots {
       position: absolute;
       top: 50%;
@@ -359,17 +404,23 @@
     /* ---- MOBILE ---- */
     @media (max-width: 520px) {
       .page {
-        padding: 36px 20px;
+        padding: 36px 16px;
         gap: 0;
       }
 
-      .key-icon-wrap {
+      .emblem {
+        width: 240px;
+        height: 240px;
         margin-bottom: 32px;
       }
 
       .key-icon {
-        width: 100px;
-        height: 100px;
+        width: 140px;
+        height: 140px;
+      }
+
+      .orbit-text text {
+        font-size: 9px;
       }
 
       .brand {
@@ -420,50 +471,75 @@
 
   <div class="page">
 
-    <!-- Key Icon — halftone dot style, 3D rotating -->
-    <div class="key-icon-wrap">
-      <svg class="key-icon" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <!-- Concentric dot rings -->
-        <circle cx="40" cy="30" r="2" fill="#1a1a18"/>
-        <circle cx="40" cy="22" r="1.8" fill="#1a1a18"/>
-        <circle cx="40" cy="38" r="1.8" fill="#1a1a18"/>
-        <circle cx="32" cy="30" r="1.8" fill="#1a1a18"/>
-        <circle cx="48" cy="30" r="1.8" fill="#1a1a18"/>
-        <circle cx="34" cy="23" r="1.5" fill="#1a1a18"/>
-        <circle cx="46" cy="23" r="1.5" fill="#1a1a18"/>
-        <circle cx="34" cy="37" r="1.5" fill="#1a1a18"/>
-        <circle cx="46" cy="37" r="1.5" fill="#1a1a18"/>
-        <!-- Outer ring dots -->
-        <circle cx="40" cy="15" r="1.2" fill="#1a1a18" opacity="0.7"/>
-        <circle cx="40" cy="45" r="1.2" fill="#1a1a18" opacity="0.7"/>
-        <circle cx="25" cy="30" r="1.2" fill="#1a1a18" opacity="0.7"/>
-        <circle cx="55" cy="30" r="1.2" fill="#1a1a18" opacity="0.7"/>
-        <circle cx="29" cy="19" r="1" fill="#1a1a18" opacity="0.5"/>
-        <circle cx="51" cy="19" r="1" fill="#1a1a18" opacity="0.5"/>
-        <circle cx="29" cy="41" r="1" fill="#1a1a18" opacity="0.5"/>
-        <circle cx="51" cy="41" r="1" fill="#1a1a18" opacity="0.5"/>
-        <!-- Even more outer dots -->
-        <circle cx="40" cy="10" r="0.8" fill="#1a1a18" opacity="0.3"/>
-        <circle cx="22" cy="19" r="0.8" fill="#1a1a18" opacity="0.3"/>
-        <circle cx="58" cy="19" r="0.8" fill="#1a1a18" opacity="0.3"/>
-        <circle cx="22" cy="41" r="0.8" fill="#1a1a18" opacity="0.3"/>
-        <circle cx="58" cy="41" r="0.8" fill="#1a1a18" opacity="0.3"/>
-        <!-- Outermost ring -->
-        <circle cx="40" cy="6" r="0.6" fill="#1a1a18" opacity="0.15"/>
-        <circle cx="18" cy="15" r="0.6" fill="#1a1a18" opacity="0.15"/>
-        <circle cx="62" cy="15" r="0.6" fill="#1a1a18" opacity="0.15"/>
-        <circle cx="18" cy="45" r="0.6" fill="#1a1a18" opacity="0.15"/>
-        <circle cx="62" cy="45" r="0.6" fill="#1a1a18" opacity="0.15"/>
-        <circle cx="14" cy="30" r="0.6" fill="#1a1a18" opacity="0.15"/>
-        <circle cx="66" cy="30" r="0.6" fill="#1a1a18" opacity="0.15"/>
-        <!-- Star / compass shape in center -->
-        <path d="M40 24 L41.5 28.5 L46 30 L41.5 31.5 L40 36 L38.5 31.5 L34 30 L38.5 28.5 Z" fill="#1a1a18"/>
-        <!-- Key shaft -->
-        <rect x="38.5" y="42" width="3" height="18" rx="0.5" fill="#1a1a18"/>
-        <!-- Key teeth -->
-        <rect x="41.5" y="54" width="5" height="2.5" rx="0.5" fill="#1a1a18"/>
-        <rect x="41.5" y="58" width="3.5" height="2.5" rx="0.5" fill="#1a1a18"/>
+    <!-- EMBLEM: orbiting text ring + dot ring + 3D spinning key -->
+    <div class="emblem">
+
+      <!-- Circular orbiting text -->
+      <svg class="orbit-text" viewBox="0 0 280 280">
+        <defs>
+          <path id="textCircle" d="M 140,140 m -115,0 a 115,115 0 1,1 230,0 a 115,115 0 1,1 -230,0"/>
+        </defs>
+        <text><textPath href="#textCircle">BEFORE KEYS &#x2022; NEXT-GEN SOCIAL &#x2022; NEW BUILD REAL ESTATE &#x2022; UNLOCKING STORIES &#x2022; </textPath></text>
       </svg>
+
+      <!-- Dot ring (counter-rotating) -->
+      <svg class="dot-ring" viewBox="0 0 240 240">
+        <circle cx="120" cy="8" r="2.5" fill="#1a1a18" opacity="0.6"/>
+        <circle cx="120" cy="232" r="2.5" fill="#1a1a18" opacity="0.6"/>
+        <circle cx="8" cy="120" r="2.5" fill="#1a1a18" opacity="0.6"/>
+        <circle cx="232" cy="120" r="2.5" fill="#1a1a18" opacity="0.6"/>
+        <circle cx="41" cy="41" r="2" fill="#1a1a18" opacity="0.4"/>
+        <circle cx="199" cy="41" r="2" fill="#1a1a18" opacity="0.4"/>
+        <circle cx="41" cy="199" r="2" fill="#1a1a18" opacity="0.4"/>
+        <circle cx="199" cy="199" r="2" fill="#1a1a18" opacity="0.4"/>
+        <circle cx="72" cy="16" r="1.5" fill="#1a1a18" opacity="0.25"/>
+        <circle cx="168" cy="16" r="1.5" fill="#1a1a18" opacity="0.25"/>
+        <circle cx="72" cy="224" r="1.5" fill="#1a1a18" opacity="0.25"/>
+        <circle cx="168" cy="224" r="1.5" fill="#1a1a18" opacity="0.25"/>
+        <circle cx="16" cy="72" r="1.5" fill="#1a1a18" opacity="0.25"/>
+        <circle cx="224" cy="72" r="1.5" fill="#1a1a18" opacity="0.25"/>
+        <circle cx="16" cy="168" r="1.5" fill="#1a1a18" opacity="0.25"/>
+        <circle cx="224" cy="168" r="1.5" fill="#1a1a18" opacity="0.25"/>
+      </svg>
+
+      <!-- 3D spinning key -->
+      <div class="key-icon-wrap">
+        <svg class="key-icon" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="40" cy="30" r="2" fill="#1a1a18"/>
+          <circle cx="40" cy="22" r="1.8" fill="#1a1a18"/>
+          <circle cx="40" cy="38" r="1.8" fill="#1a1a18"/>
+          <circle cx="32" cy="30" r="1.8" fill="#1a1a18"/>
+          <circle cx="48" cy="30" r="1.8" fill="#1a1a18"/>
+          <circle cx="34" cy="23" r="1.5" fill="#1a1a18"/>
+          <circle cx="46" cy="23" r="1.5" fill="#1a1a18"/>
+          <circle cx="34" cy="37" r="1.5" fill="#1a1a18"/>
+          <circle cx="46" cy="37" r="1.5" fill="#1a1a18"/>
+          <circle cx="40" cy="15" r="1.2" fill="#1a1a18" opacity="0.7"/>
+          <circle cx="40" cy="45" r="1.2" fill="#1a1a18" opacity="0.7"/>
+          <circle cx="25" cy="30" r="1.2" fill="#1a1a18" opacity="0.7"/>
+          <circle cx="55" cy="30" r="1.2" fill="#1a1a18" opacity="0.7"/>
+          <circle cx="29" cy="19" r="1" fill="#1a1a18" opacity="0.5"/>
+          <circle cx="51" cy="19" r="1" fill="#1a1a18" opacity="0.5"/>
+          <circle cx="29" cy="41" r="1" fill="#1a1a18" opacity="0.5"/>
+          <circle cx="51" cy="41" r="1" fill="#1a1a18" opacity="0.5"/>
+          <circle cx="40" cy="10" r="0.8" fill="#1a1a18" opacity="0.3"/>
+          <circle cx="22" cy="19" r="0.8" fill="#1a1a18" opacity="0.3"/>
+          <circle cx="58" cy="19" r="0.8" fill="#1a1a18" opacity="0.3"/>
+          <circle cx="22" cy="41" r="0.8" fill="#1a1a18" opacity="0.3"/>
+          <circle cx="58" cy="41" r="0.8" fill="#1a1a18" opacity="0.3"/>
+          <circle cx="40" cy="6" r="0.6" fill="#1a1a18" opacity="0.15"/>
+          <circle cx="18" cy="15" r="0.6" fill="#1a1a18" opacity="0.15"/>
+          <circle cx="62" cy="15" r="0.6" fill="#1a1a18" opacity="0.15"/>
+          <circle cx="18" cy="45" r="0.6" fill="#1a1a18" opacity="0.15"/>
+          <circle cx="62" cy="45" r="0.6" fill="#1a1a18" opacity="0.15"/>
+          <circle cx="14" cy="30" r="0.6" fill="#1a1a18" opacity="0.15"/>
+          <circle cx="66" cy="30" r="0.6" fill="#1a1a18" opacity="0.15"/>
+          <path d="M40 24 L41.5 28.5 L46 30 L41.5 31.5 L40 36 L38.5 31.5 L34 30 L38.5 28.5 Z" fill="#1a1a18"/>
+          <rect x="38.5" y="42" width="3" height="18" rx="0.5" fill="#1a1a18"/>
+          <rect x="41.5" y="54" width="5" height="2.5" rx="0.5" fill="#1a1a18"/>
+          <rect x="41.5" y="58" width="3.5" height="2.5" rx="0.5" fill="#1a1a18"/>
+        </svg>
+      </div>
     </div>
 
     <h1 class="brand">Before Keys</h1>
@@ -476,11 +552,11 @@
       <span></span><span></span><span></span>
     </div>
 
-    <p class="description">
+    <p class="description" id="cipherText" data-text="We craft the story, strategy & content that sells homes before the first key is handed over.">
       We craft the <strong>story, strategy & content</strong> that sells homes before the first key is handed over.
     </p>
 
-    <!-- Under Construction — unique badge with scanner + corners + cursor -->
+    <!-- Under Construction -->
     <div class="construction-wrap">
       <div class="construction-dots left">
         <span></span><span></span><span></span><span></span><span></span>
@@ -518,7 +594,7 @@
   </div>
 
   <script>
-    // Animated halftone dot background
+    // ---- HALFTONE DOT BACKGROUND ----
     const canvas = document.getElementById('halftone');
     const ctx = canvas.getContext('2d');
     let w, h, cols, rows;
@@ -592,6 +668,56 @@
 
     resize();
     draw();
+
+    // ---- CIPHER DECODE EFFECT ----
+    // Text decodes from scrambled glyphs like unlocking a cipher — on brand with "keys"
+    (function cipherDecode() {
+      const el = document.getElementById('cipherText');
+      const finalText = el.getAttribute('data-text');
+      const glyphs = '&#%@$!?*+=/\\|~<>[]{}0123456789';
+      const len = finalText.length;
+      let revealed = 0;
+
+      function scrambleRemaining() {
+        let html = '';
+        for (let i = 0; i < len; i++) {
+          if (finalText[i] === ' ') {
+            html += ' ';
+          } else if (i < revealed) {
+            // Check if this is part of "story, strategy & content" for bold
+            const boldStart = finalText.indexOf('story, strategy & content');
+            const boldEnd = boldStart + 'story, strategy & content'.length;
+            if (i >= boldStart && i < boldEnd) {
+              if (i === boldStart) html += '<strong>';
+              html += finalText[i];
+              if (i === boldEnd - 1) html += '</strong>';
+            } else {
+              html += finalText[i];
+            }
+          } else {
+            html += '<span class="cipher-char">' + glyphs[Math.floor(Math.random() * glyphs.length)] + '</span>';
+          }
+        }
+        el.innerHTML = html;
+      }
+
+      // Wait for fade-in, then start decoding
+      setTimeout(() => {
+        const interval = setInterval(() => {
+          revealed += 1 + Math.floor(Math.random() * 2);
+          if (revealed >= len) {
+            revealed = len;
+            clearInterval(interval);
+            // Restore final HTML with bold
+            el.innerHTML = 'We craft the <strong>story, strategy & content</strong> that sells homes before the first key is handed over.';
+          }
+          scrambleRemaining();
+        }, 40);
+
+        // Initial scramble
+        scrambleRemaining();
+      }, 1200);
+    })();
   </script>
 </body>
 </html>
