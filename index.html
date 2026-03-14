@@ -64,13 +64,24 @@
       text-align: center;
     }
 
-    /* ---- KEY ICON (SVG halftone style) ---- */
-    .key-icon {
-      width: 80px;
-      height: 80px;
-      margin-bottom: 40px;
+    /* ---- KEY ICON (SVG halftone style) — 3D spin ---- */
+    .key-icon-wrap {
+      perspective: 600px;
+      margin-bottom: 48px;
       opacity: 0;
       animation: dotFadeIn 0.8s ease forwards 0.2s;
+    }
+
+    .key-icon {
+      width: 140px;
+      height: 140px;
+      animation: spin3d 8s ease-in-out infinite;
+      transform-style: preserve-3d;
+    }
+
+    @keyframes spin3d {
+      0%   { transform: rotateY(0deg); }
+      100% { transform: rotateY(360deg); }
     }
 
     /* ---- BRAND ---- */
@@ -162,41 +173,110 @@
       color: var(--ink);
     }
 
-    /* ---- UNDER CONSTRUCTION BADGE ---- */
-    .status-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 12px 28px;
-      border: 1.5px solid var(--ink);
-      font-family: 'Space Mono', monospace;
-      font-size: 0.65rem;
-      font-weight: 700;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--ink);
+    /* ---- UNDER CONSTRUCTION — glitch scanner ---- */
+    .construction-wrap {
+      position: relative;
       margin-bottom: 48px;
       opacity: 0;
       animation: dotFadeIn 0.8s ease forwards 1s;
-      position: relative;
     }
 
-    .status-badge::before,
-    .status-badge::after {
+    .construction {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px 36px;
+      border: 1.5px solid var(--ink);
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--ink);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Scanning line effect */
+    .construction::before {
       content: '';
-      display: block;
-      width: 6px;
-      height: 6px;
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(26, 26, 24, 0.06) 40%,
+        rgba(26, 26, 24, 0.12) 50%,
+        rgba(26, 26, 24, 0.06) 60%,
+        transparent 100%
+      );
+      animation: scanLine 3s ease-in-out infinite;
+    }
+
+    @keyframes scanLine {
+      0%   { left: -100%; }
+      100% { left: 100%; }
+    }
+
+    /* Corner marks */
+    .construction .corner {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      border-color: var(--ink);
+      border-style: solid;
+      border-width: 0;
+    }
+
+    .construction .corner.tl { top: -1px; left: -1px; border-top-width: 2px; border-left-width: 2px; }
+    .construction .corner.tr { top: -1px; right: -1px; border-top-width: 2px; border-right-width: 2px; }
+    .construction .corner.bl { bottom: -1px; left: -1px; border-bottom-width: 2px; border-left-width: 2px; }
+    .construction .corner.br { bottom: -1px; right: -1px; border-bottom-width: 2px; border-right-width: 2px; }
+
+    /* Blinking cursor block */
+    .construction .cursor-block {
+      display: inline-block;
+      width: 8px;
+      height: 14px;
+      background: var(--ink);
+      animation: cursorBlink 1s step-end infinite;
+      vertical-align: middle;
+      margin-left: 2px;
+    }
+
+    @keyframes cursorBlink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    /* Halftone dots around badge */
+    .construction-dots {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .construction-dots.left { right: calc(100% + 12px); }
+    .construction-dots.right { left: calc(100% + 12px); }
+
+    .construction-dots span {
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
       background: var(--ink);
     }
 
-    .status-badge::before {
-      clip-path: polygon(0 0, 100% 0, 100% 100%);
-    }
-
-    .status-badge::after {
-      clip-path: polygon(0 0, 0 100%, 100% 100%);
-    }
+    .construction-dots span:nth-child(1) { opacity: 0.15; }
+    .construction-dots span:nth-child(2) { opacity: 0.4; }
+    .construction-dots span:nth-child(3) { opacity: 0.7; }
+    .construction-dots span:nth-child(4) { opacity: 0.4; }
+    .construction-dots span:nth-child(5) { opacity: 0.15; }
 
     /* ---- PIXEL GRID DECORATION ---- */
     .pixel-row {
@@ -221,7 +301,6 @@
     .contact {
       opacity: 0;
       animation: dotFadeIn 0.8s ease forwards 1.2s;
-      margin-bottom: 20px;
     }
 
     .contact a {
@@ -240,45 +319,13 @@
       opacity: 0.6;
     }
 
-    /* ---- CURRENT PROJECT ---- */
-    .project {
-      margin-top: 12px;
-      opacity: 0;
-      animation: dotFadeIn 0.8s ease forwards 1.35s;
-    }
-
-    .project-label {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.55rem;
-      font-weight: 400;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--ink-faint);
-      margin-bottom: 8px;
-    }
-
-    .project-name {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.85rem;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      color: var(--ink-light);
-    }
-
-    .project-detail {
-      font-size: 0.72rem;
-      font-weight: 300;
-      color: var(--ink-mid);
-      margin-top: 2px;
-    }
-
     /* ---- FOOTER DOTS ---- */
     .footer-dots {
       margin-top: 48px;
       display: flex;
       gap: 8px;
       opacity: 0;
-      animation: dotFadeIn 0.8s ease forwards 1.5s;
+      animation: dotFadeIn 0.8s ease forwards 1.35s;
     }
 
     .footer-dots span {
@@ -312,17 +359,58 @@
     /* ---- MOBILE ---- */
     @media (max-width: 520px) {
       .page {
-        padding: 48px 20px;
+        padding: 36px 20px;
+        gap: 0;
       }
 
-      .key-icon {
-        width: 60px;
-        height: 60px;
+      .key-icon-wrap {
         margin-bottom: 32px;
       }
 
+      .key-icon {
+        width: 100px;
+        height: 100px;
+      }
+
+      .brand {
+        font-size: 1.8rem;
+        margin-bottom: 6px;
+      }
+
+      .tagline {
+        font-size: 0.5rem;
+        letter-spacing: 0.2em;
+        margin-bottom: 28px;
+      }
+
+      .halftone-divider {
+        margin-bottom: 28px;
+      }
+
       .description {
-        font-size: 0.88rem;
+        font-size: 0.85rem;
+        margin-bottom: 32px;
+        padding: 0 4px;
+      }
+
+      .construction-wrap {
+        margin-bottom: 32px;
+      }
+
+      .construction {
+        padding: 12px 20px;
+        font-size: 0.58rem;
+        letter-spacing: 0.16em;
+      }
+
+      .construction-dots { display: none; }
+
+      .pixel-row {
+        margin-bottom: 32px;
+      }
+
+      .footer-dots {
+        margin-top: 32px;
       }
     }
   </style>
@@ -332,41 +420,51 @@
 
   <div class="page">
 
-    <!-- Key Icon — halftone dot style -->
-    <svg class="key-icon" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <!-- Concentric dot rings -->
-      <circle cx="40" cy="30" r="2" fill="#1a1a18"/>
-      <circle cx="40" cy="22" r="1.8" fill="#1a1a18"/>
-      <circle cx="40" cy="38" r="1.8" fill="#1a1a18"/>
-      <circle cx="32" cy="30" r="1.8" fill="#1a1a18"/>
-      <circle cx="48" cy="30" r="1.8" fill="#1a1a18"/>
-      <circle cx="34" cy="23" r="1.5" fill="#1a1a18"/>
-      <circle cx="46" cy="23" r="1.5" fill="#1a1a18"/>
-      <circle cx="34" cy="37" r="1.5" fill="#1a1a18"/>
-      <circle cx="46" cy="37" r="1.5" fill="#1a1a18"/>
-      <!-- Outer ring dots -->
-      <circle cx="40" cy="15" r="1.2" fill="#1a1a18" opacity="0.7"/>
-      <circle cx="40" cy="45" r="1.2" fill="#1a1a18" opacity="0.7"/>
-      <circle cx="25" cy="30" r="1.2" fill="#1a1a18" opacity="0.7"/>
-      <circle cx="55" cy="30" r="1.2" fill="#1a1a18" opacity="0.7"/>
-      <circle cx="29" cy="19" r="1" fill="#1a1a18" opacity="0.5"/>
-      <circle cx="51" cy="19" r="1" fill="#1a1a18" opacity="0.5"/>
-      <circle cx="29" cy="41" r="1" fill="#1a1a18" opacity="0.5"/>
-      <circle cx="51" cy="41" r="1" fill="#1a1a18" opacity="0.5"/>
-      <!-- Even more outer dots -->
-      <circle cx="40" cy="10" r="0.8" fill="#1a1a18" opacity="0.3"/>
-      <circle cx="22" cy="19" r="0.8" fill="#1a1a18" opacity="0.3"/>
-      <circle cx="58" cy="19" r="0.8" fill="#1a1a18" opacity="0.3"/>
-      <circle cx="22" cy="41" r="0.8" fill="#1a1a18" opacity="0.3"/>
-      <circle cx="58" cy="41" r="0.8" fill="#1a1a18" opacity="0.3"/>
-      <!-- Star / compass shape in center -->
-      <path d="M40 24 L41.5 28.5 L46 30 L41.5 31.5 L40 36 L38.5 31.5 L34 30 L38.5 28.5 Z" fill="#1a1a18"/>
-      <!-- Key shaft -->
-      <rect x="38.5" y="42" width="3" height="18" rx="0.5" fill="#1a1a18"/>
-      <!-- Key teeth -->
-      <rect x="41.5" y="54" width="5" height="2.5" rx="0.5" fill="#1a1a18"/>
-      <rect x="41.5" y="58" width="3.5" height="2.5" rx="0.5" fill="#1a1a18"/>
-    </svg>
+    <!-- Key Icon — halftone dot style, 3D rotating -->
+    <div class="key-icon-wrap">
+      <svg class="key-icon" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Concentric dot rings -->
+        <circle cx="40" cy="30" r="2" fill="#1a1a18"/>
+        <circle cx="40" cy="22" r="1.8" fill="#1a1a18"/>
+        <circle cx="40" cy="38" r="1.8" fill="#1a1a18"/>
+        <circle cx="32" cy="30" r="1.8" fill="#1a1a18"/>
+        <circle cx="48" cy="30" r="1.8" fill="#1a1a18"/>
+        <circle cx="34" cy="23" r="1.5" fill="#1a1a18"/>
+        <circle cx="46" cy="23" r="1.5" fill="#1a1a18"/>
+        <circle cx="34" cy="37" r="1.5" fill="#1a1a18"/>
+        <circle cx="46" cy="37" r="1.5" fill="#1a1a18"/>
+        <!-- Outer ring dots -->
+        <circle cx="40" cy="15" r="1.2" fill="#1a1a18" opacity="0.7"/>
+        <circle cx="40" cy="45" r="1.2" fill="#1a1a18" opacity="0.7"/>
+        <circle cx="25" cy="30" r="1.2" fill="#1a1a18" opacity="0.7"/>
+        <circle cx="55" cy="30" r="1.2" fill="#1a1a18" opacity="0.7"/>
+        <circle cx="29" cy="19" r="1" fill="#1a1a18" opacity="0.5"/>
+        <circle cx="51" cy="19" r="1" fill="#1a1a18" opacity="0.5"/>
+        <circle cx="29" cy="41" r="1" fill="#1a1a18" opacity="0.5"/>
+        <circle cx="51" cy="41" r="1" fill="#1a1a18" opacity="0.5"/>
+        <!-- Even more outer dots -->
+        <circle cx="40" cy="10" r="0.8" fill="#1a1a18" opacity="0.3"/>
+        <circle cx="22" cy="19" r="0.8" fill="#1a1a18" opacity="0.3"/>
+        <circle cx="58" cy="19" r="0.8" fill="#1a1a18" opacity="0.3"/>
+        <circle cx="22" cy="41" r="0.8" fill="#1a1a18" opacity="0.3"/>
+        <circle cx="58" cy="41" r="0.8" fill="#1a1a18" opacity="0.3"/>
+        <!-- Outermost ring -->
+        <circle cx="40" cy="6" r="0.6" fill="#1a1a18" opacity="0.15"/>
+        <circle cx="18" cy="15" r="0.6" fill="#1a1a18" opacity="0.15"/>
+        <circle cx="62" cy="15" r="0.6" fill="#1a1a18" opacity="0.15"/>
+        <circle cx="18" cy="45" r="0.6" fill="#1a1a18" opacity="0.15"/>
+        <circle cx="62" cy="45" r="0.6" fill="#1a1a18" opacity="0.15"/>
+        <circle cx="14" cy="30" r="0.6" fill="#1a1a18" opacity="0.15"/>
+        <circle cx="66" cy="30" r="0.6" fill="#1a1a18" opacity="0.15"/>
+        <!-- Star / compass shape in center -->
+        <path d="M40 24 L41.5 28.5 L46 30 L41.5 31.5 L40 36 L38.5 31.5 L34 30 L38.5 28.5 Z" fill="#1a1a18"/>
+        <!-- Key shaft -->
+        <rect x="38.5" y="42" width="3" height="18" rx="0.5" fill="#1a1a18"/>
+        <!-- Key teeth -->
+        <rect x="41.5" y="54" width="5" height="2.5" rx="0.5" fill="#1a1a18"/>
+        <rect x="41.5" y="58" width="3.5" height="2.5" rx="0.5" fill="#1a1a18"/>
+      </svg>
+    </div>
 
     <h1 class="brand">Before Keys</h1>
     <p class="tagline">Next-gen social agency for new build real estate</p>
@@ -382,8 +480,22 @@
       We craft the <strong>story, strategy & content</strong> that sells homes before the first key is handed over.
     </p>
 
-    <!-- Under Construction badge -->
-    <div class="status-badge">Under Construction</div>
+    <!-- Under Construction — unique badge with scanner + corners + cursor -->
+    <div class="construction-wrap">
+      <div class="construction-dots left">
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+      <div class="construction">
+        <span class="corner tl"></span>
+        <span class="corner tr"></span>
+        <span class="corner bl"></span>
+        <span class="corner br"></span>
+        Website Under Construction<span class="cursor-block"></span>
+      </div>
+      <div class="construction-dots right">
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+    </div>
 
     <!-- Pixel row decoration -->
     <div class="pixel-row">
@@ -398,12 +510,6 @@
 
     <div class="contact">
       <a href="mailto:info@beforekeys.com">info@beforekeys.com</a>
-    </div>
-
-    <div class="project">
-      <p class="project-label">Current Project</p>
-      <p class="project-name">IJ Loods</p>
-      <p class="project-detail">New-build loft apartments, Amsterdam</p>
     </div>
 
     <div class="footer-dots">
@@ -443,7 +549,6 @@
           const x = col * GRID;
           const y = row * GRID;
 
-          // Distance from center
           const cx = w / 2;
           const cy = h / 2;
           const dx = x - cx;
@@ -451,22 +556,18 @@
           const distCenter = Math.sqrt(dx * dx + dy * dy);
           const maxDist = Math.sqrt(cx * cx + cy * cy);
 
-          // Concentric ring pattern (like the image)
           const ringPhase = distCenter * 0.02 + time;
           const ringWave = Math.sin(ringPhase) * 0.5 + 0.5;
 
-          // Distance from mouse for interactive hover
           const mdx = x - mouse.x;
           const mdy = y - mouse.y;
           const mouseDist = Math.sqrt(mdx * mdx + mdy * mdy);
           const mouseInfluence = Math.max(0, 1 - mouseDist / 150);
 
-          // Base radius — dots are bigger near edges, with ring modulation
           const edgeFade = distCenter / maxDist;
           const baseR = 0.3 + edgeFade * 1.2 + ringWave * 0.8;
           const r = Math.max(0.2, Math.min(baseR + mouseInfluence * 2, GRID * 0.42));
 
-          // Opacity
           const alpha = 0.03 + edgeFade * 0.06 + ringWave * 0.04 + mouseInfluence * 0.15;
 
           ctx.beginPath();
