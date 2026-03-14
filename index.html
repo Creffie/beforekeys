@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Before Keys — Social Media Agency for New-Build Projects</title>
+  <meta name="description" content="We craft the story, strategy and content that sells homes before the first key is handed over.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      overflow: hidden;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      color: #3a3530;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #faf6f1;
+      position: relative;
+    }
+
+    /* Warm background gradient */
+    .bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 20% 30%, #f5dcc4 0%, transparent 60%),
+        radial-gradient(ellipse 70% 50% at 80% 20%, #f0d8c8 0%, transparent 55%),
+        radial-gradient(ellipse 60% 70% at 60% 80%, #efe4d4 0%, transparent 50%),
+        radial-gradient(ellipse 50% 50% at 10% 80%, #f3e1ca 0%, transparent 50%),
+        linear-gradient(160deg, #faf6f1 0%, #f5ece2 40%, #f0e4d6 100%);
+    }
+
+    /* Grain texture overlay */
+    .grain {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      opacity: 0.028;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-size: 180px 180px;
+    }
+
+    /* Glass card */
+    .card {
+      position: relative;
+      z-index: 2;
+      width: 90%;
+      max-width: 440px;
+      padding: 52px 44px;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.35);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow:
+        0 4px 30px rgba(0, 0, 0, 0.02),
+        0 1px 3px rgba(0, 0, 0, 0.015),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+      text-align: center;
+      transform: perspective(800px) rotateX(1deg) rotateY(-0.5deg);
+      transition: transform 0.4s ease;
+    }
+
+    .card:hover {
+      transform: perspective(800px) rotateX(0.5deg) rotateY(0.25deg);
+    }
+
+    /* Staggered fade-in */
+    .fade-item {
+      opacity: 0;
+      transform: translateY(14px);
+      animation: fadeUp 0.7s ease forwards;
+    }
+
+    .fade-item:nth-child(1) { animation-delay: 0.15s; }
+    .fade-item:nth-child(2) { animation-delay: 0.3s; }
+    .fade-item:nth-child(3) { animation-delay: 0.45s; }
+    .fade-item:nth-child(4) { animation-delay: 0.6s; }
+    .fade-item:nth-child(5) { animation-delay: 0.75s; }
+    .fade-item:nth-child(6) { animation-delay: 0.9s; }
+    .fade-item:nth-child(7) { animation-delay: 1.05s; }
+
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Emoji */
+    .emoji {
+      font-size: 1.1rem;
+      display: block;
+      margin-bottom: 14px;
+    }
+
+    /* Heading */
+    .heading {
+      font-family: 'Instrument Serif', serif;
+      font-weight: 400;
+      font-size: 2.4rem;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      color: #2a2520;
+      margin-bottom: 16px;
+    }
+
+    .heading em {
+      font-family: 'Instrument Serif', serif;
+      font-style: italic;
+    }
+
+    /* Tagline */
+    .tagline {
+      font-size: 0.68rem;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      color: #8a7e72;
+      margin-bottom: 28px;
+    }
+
+    /* Divider */
+    .divider {
+      width: 48px;
+      height: 1px;
+      background: rgba(0, 0, 0, 0.1);
+      margin: 0 auto 28px;
+    }
+
+    /* Body text */
+    .body-text {
+      font-size: 0.92rem;
+      font-weight: 300;
+      line-height: 1.65;
+      color: #6b6058;
+      max-width: 340px;
+      margin: 0 auto 32px;
+    }
+
+    /* Email button */
+    .email-btn {
+      display: inline-block;
+      padding: 10px 28px;
+      border-radius: 100px;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      background: rgba(255, 255, 255, 0.5);
+      color: #4a4038;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      margin-bottom: 32px;
+    }
+
+    .email-btn:hover {
+      background: rgba(255, 255, 255, 0.75);
+      border-color: rgba(0, 0, 0, 0.12);
+      transform: translateY(-1px);
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+    }
+
+    /* Launching soon */
+    .launching {
+      font-size: 0.62rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: #a89d92;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .pulse-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #7ec47e;
+      animation: pulse 2.5s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.4; transform: scale(0.9); }
+      50% { opacity: 1; transform: scale(1.15); }
+    }
+
+    /* Mobile */
+    @media (max-width: 520px) {
+      .card {
+        padding: 40px 28px;
+        border-radius: 20px;
+        transform: none;
+      }
+
+      .card:hover {
+        transform: none;
+      }
+
+      .heading {
+        font-size: 2rem;
+      }
+
+      .body-text {
+        font-size: 0.88rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg"></div>
+  <div class="grain"></div>
+
+  <div class="card">
+    <div class="fade-item emoji">&#x1F511;</div>
+    <h1 class="fade-item heading">Before <em>Keys</em></h1>
+    <p class="fade-item tagline">Social media agency for new-build projects</p>
+    <div class="fade-item divider"></div>
+    <p class="fade-item body-text">We craft the story, strategy and content that sells homes before the first key is handed over.</p>
+    <div class="fade-item"><a href="mailto:info@beforekeys.com" class="email-btn">info@beforekeys.com</a></div>
+    <div class="fade-item launching"><span class="pulse-dot"></span> Launching soon 2026</div>
+  </div>
+</body>
+</html>
