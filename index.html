@@ -1,15 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Before Keys — Next-Gen Social Agency for New Build Real Estate</title>
-  <meta name="description" content="Before Keys — a next-gen social agency for new build real estate projects. Coming soon.">
+  <meta name="description"
+    content="Before Keys — a next-gen social agency for new build real estate projects. Coming soon.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
   <style>
-    *, *::before, *::after {
+    *,
+    *::before,
+    *::after {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
@@ -23,7 +29,8 @@
       --ink-faint: #b0ada6;
     }
 
-    html, body {
+    html,
+    body {
       height: 100%;
       overflow: hidden;
     }
@@ -125,8 +132,13 @@
     }
 
     @keyframes spin3d {
-      0%   { transform: rotateY(0deg); }
-      100% { transform: rotateY(360deg); }
+      0% {
+        transform: rotateY(0deg);
+      }
+
+      100% {
+        transform: rotateY(360deg);
+      }
     }
 
     /* ---- ORBITING TEXT (3D orbit around box) ---- */
@@ -138,8 +150,13 @@
     }
 
     @keyframes orbit3d {
-      0%   { transform: rotateY(0deg); }
-      100% { transform: rotateY(360deg); }
+      0% {
+        transform: rotateY(0deg);
+      }
+
+      100% {
+        transform: rotateY(360deg);
+      }
     }
 
     /* Each text element is placed around the orbit ring */
@@ -162,24 +179,31 @@
     .orbit-word:nth-child(1) {
       transform: translate(-50%, -50%) rotateY(0deg) translateZ(clamp(120px, 24vw, 190px));
     }
+
     .orbit-word:nth-child(2) {
       transform: translate(-50%, -50%) rotateY(45deg) translateZ(clamp(120px, 24vw, 190px));
     }
+
     .orbit-word:nth-child(3) {
       transform: translate(-50%, -50%) rotateY(90deg) translateZ(clamp(120px, 24vw, 190px));
     }
+
     .orbit-word:nth-child(4) {
       transform: translate(-50%, -50%) rotateY(135deg) translateZ(clamp(120px, 24vw, 190px));
     }
+
     .orbit-word:nth-child(5) {
       transform: translate(-50%, -50%) rotateY(180deg) translateZ(clamp(120px, 24vw, 190px));
     }
+
     .orbit-word:nth-child(6) {
       transform: translate(-50%, -50%) rotateY(225deg) translateZ(clamp(120px, 24vw, 190px));
     }
+
     .orbit-word:nth-child(7) {
       transform: translate(-50%, -50%) rotateY(270deg) translateZ(clamp(120px, 24vw, 190px));
     }
+
     .orbit-word:nth-child(8) {
       transform: translate(-50%, -50%) rotateY(315deg) translateZ(clamp(120px, 24vw, 190px));
     }
@@ -204,11 +228,9 @@
       width: 100%;
       height: 3px;
       margin-top: 6px;
-      background: repeating-linear-gradient(
-        to right,
-        var(--ink) 0px, var(--ink) 3px,
-        transparent 3px, transparent 6px
-      );
+      background: repeating-linear-gradient(to right,
+          var(--ink) 0px, var(--ink) 3px,
+          transparent 3px, transparent 6px);
     }
 
     /* ---- TAGLINE ---- */
@@ -242,19 +264,75 @@
       background: var(--ink);
     }
 
-    .halftone-divider span:nth-child(1) { opacity: 0.15; width: 3px; height: 3px; }
-    .halftone-divider span:nth-child(2) { opacity: 0.25; width: 3px; height: 3px; }
-    .halftone-divider span:nth-child(3) { opacity: 0.35; }
-    .halftone-divider span:nth-child(4) { opacity: 0.5; }
-    .halftone-divider span:nth-child(5) { opacity: 0.65; width: 5px; height: 5px; }
-    .halftone-divider span:nth-child(6) { opacity: 0.8; width: 5px; height: 5px; }
-    .halftone-divider span:nth-child(7) { opacity: 1; width: 6px; height: 6px; }
-    .halftone-divider span:nth-child(8) { opacity: 0.8; width: 5px; height: 5px; }
-    .halftone-divider span:nth-child(9) { opacity: 0.65; width: 5px; height: 5px; }
-    .halftone-divider span:nth-child(10) { opacity: 0.5; }
-    .halftone-divider span:nth-child(11) { opacity: 0.35; }
-    .halftone-divider span:nth-child(12) { opacity: 0.25; width: 3px; height: 3px; }
-    .halftone-divider span:nth-child(13) { opacity: 0.15; width: 3px; height: 3px; }
+    .halftone-divider span:nth-child(1) {
+      opacity: 0.15;
+      width: 3px;
+      height: 3px;
+    }
+
+    .halftone-divider span:nth-child(2) {
+      opacity: 0.25;
+      width: 3px;
+      height: 3px;
+    }
+
+    .halftone-divider span:nth-child(3) {
+      opacity: 0.35;
+    }
+
+    .halftone-divider span:nth-child(4) {
+      opacity: 0.5;
+    }
+
+    .halftone-divider span:nth-child(5) {
+      opacity: 0.65;
+      width: 5px;
+      height: 5px;
+    }
+
+    .halftone-divider span:nth-child(6) {
+      opacity: 0.8;
+      width: 5px;
+      height: 5px;
+    }
+
+    .halftone-divider span:nth-child(7) {
+      opacity: 1;
+      width: 6px;
+      height: 6px;
+    }
+
+    .halftone-divider span:nth-child(8) {
+      opacity: 0.8;
+      width: 5px;
+      height: 5px;
+    }
+
+    .halftone-divider span:nth-child(9) {
+      opacity: 0.65;
+      width: 5px;
+      height: 5px;
+    }
+
+    .halftone-divider span:nth-child(10) {
+      opacity: 0.5;
+    }
+
+    .halftone-divider span:nth-child(11) {
+      opacity: 0.35;
+    }
+
+    .halftone-divider span:nth-child(12) {
+      opacity: 0.25;
+      width: 3px;
+      height: 3px;
+    }
+
+    .halftone-divider span:nth-child(13) {
+      opacity: 0.15;
+      width: 3px;
+      height: 3px;
+    }
 
     /* ---- DESCRIPTION ---- */
     .description {
@@ -304,20 +382,23 @@
       left: -100%;
       width: 100%;
       height: 100%;
-      background: linear-gradient(
-        90deg,
-        transparent 0%,
-        rgba(26, 26, 24, 0.06) 40%,
-        rgba(26, 26, 24, 0.12) 50%,
-        rgba(26, 26, 24, 0.06) 60%,
-        transparent 100%
-      );
+      background: linear-gradient(90deg,
+          transparent 0%,
+          rgba(26, 26, 24, 0.06) 40%,
+          rgba(26, 26, 24, 0.12) 50%,
+          rgba(26, 26, 24, 0.06) 60%,
+          transparent 100%);
       animation: scanLine 3s ease-in-out infinite;
     }
 
     @keyframes scanLine {
-      0%   { left: -100%; }
-      100% { left: 100%; }
+      0% {
+        left: -100%;
+      }
+
+      100% {
+        left: 100%;
+      }
     }
 
     .construction .corner {
@@ -329,10 +410,33 @@
       border-width: 0;
     }
 
-    .construction .corner.tl { top: -1px; left: -1px; border-top-width: 2px; border-left-width: 2px; }
-    .construction .corner.tr { top: -1px; right: -1px; border-top-width: 2px; border-right-width: 2px; }
-    .construction .corner.bl { bottom: -1px; left: -1px; border-bottom-width: 2px; border-left-width: 2px; }
-    .construction .corner.br { bottom: -1px; right: -1px; border-bottom-width: 2px; border-right-width: 2px; }
+    .construction .corner.tl {
+      top: -1px;
+      left: -1px;
+      border-top-width: 2px;
+      border-left-width: 2px;
+    }
+
+    .construction .corner.tr {
+      top: -1px;
+      right: -1px;
+      border-top-width: 2px;
+      border-right-width: 2px;
+    }
+
+    .construction .corner.bl {
+      bottom: -1px;
+      left: -1px;
+      border-bottom-width: 2px;
+      border-left-width: 2px;
+    }
+
+    .construction .corner.br {
+      bottom: -1px;
+      right: -1px;
+      border-bottom-width: 2px;
+      border-right-width: 2px;
+    }
 
     .construction .cursor-block {
       display: inline-block;
@@ -345,8 +449,15 @@
     }
 
     @keyframes cursorBlink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0; }
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0;
+      }
     }
 
     .construction-dots {
@@ -358,8 +469,13 @@
       gap: 4px;
     }
 
-    .construction-dots.left { right: calc(100% + 12px); }
-    .construction-dots.right { left: calc(100% + 12px); }
+    .construction-dots.left {
+      right: calc(100% + 12px);
+    }
+
+    .construction-dots.right {
+      left: calc(100% + 12px);
+    }
 
     .construction-dots span {
       width: 3px;
@@ -368,11 +484,25 @@
       background: var(--ink);
     }
 
-    .construction-dots span:nth-child(1) { opacity: 0.15; }
-    .construction-dots span:nth-child(2) { opacity: 0.4; }
-    .construction-dots span:nth-child(3) { opacity: 0.7; }
-    .construction-dots span:nth-child(4) { opacity: 0.4; }
-    .construction-dots span:nth-child(5) { opacity: 0.15; }
+    .construction-dots span:nth-child(1) {
+      opacity: 0.15;
+    }
+
+    .construction-dots span:nth-child(2) {
+      opacity: 0.4;
+    }
+
+    .construction-dots span:nth-child(3) {
+      opacity: 0.7;
+    }
+
+    .construction-dots span:nth-child(4) {
+      opacity: 0.4;
+    }
+
+    .construction-dots span:nth-child(5) {
+      opacity: 0.15;
+    }
 
     /* ---- CONTACT ---- */
     .contact {
@@ -413,13 +543,29 @@
       opacity: 0.2;
     }
 
-    .footer-dots span:nth-child(2) { opacity: 0.35; }
-    .footer-dots span:nth-child(3) { opacity: 0.5; animation: blink 3s ease-in-out infinite; }
-    .footer-dots span:nth-child(4) { opacity: 0.35; }
+    .footer-dots span:nth-child(2) {
+      opacity: 0.35;
+    }
+
+    .footer-dots span:nth-child(3) {
+      opacity: 0.5;
+      animation: blink 3s ease-in-out infinite;
+    }
+
+    .footer-dots span:nth-child(4) {
+      opacity: 0.35;
+    }
 
     @keyframes blink {
-      0%, 100% { opacity: 0.5; }
-      50% { opacity: 1; }
+
+      0%,
+      100% {
+        opacity: 0.5;
+      }
+
+      50% {
+        opacity: 1;
+      }
     }
 
     @keyframes dotFadeIn {
@@ -427,6 +573,7 @@
         opacity: 0;
         transform: translateY(10px);
       }
+
       to {
         opacity: 1;
         transform: translateY(0);
@@ -439,7 +586,9 @@
         padding: 16px;
       }
 
-      .construction-dots { display: none; }
+      .construction-dots {
+        display: none;
+      }
     }
 
     /* Short viewports (landscape phones etc) */
@@ -472,10 +621,13 @@
         margin-bottom: 12px;
       }
 
-      .construction-dots { display: none; }
+      .construction-dots {
+        display: none;
+      }
     }
   </style>
 </head>
+
 <body>
   <canvas id="halftone"></canvas>
 
@@ -492,39 +644,39 @@
         <!-- 3D spinning key in center -->
         <div class="key-icon-wrap">
           <svg class="key-icon" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="40" cy="30" r="2" fill="#1a1a18"/>
-            <circle cx="40" cy="22" r="1.8" fill="#1a1a18"/>
-            <circle cx="40" cy="38" r="1.8" fill="#1a1a18"/>
-            <circle cx="32" cy="30" r="1.8" fill="#1a1a18"/>
-            <circle cx="48" cy="30" r="1.8" fill="#1a1a18"/>
-            <circle cx="34" cy="23" r="1.5" fill="#1a1a18"/>
-            <circle cx="46" cy="23" r="1.5" fill="#1a1a18"/>
-            <circle cx="34" cy="37" r="1.5" fill="#1a1a18"/>
-            <circle cx="46" cy="37" r="1.5" fill="#1a1a18"/>
-            <circle cx="40" cy="15" r="1.2" fill="#1a1a18" opacity="0.7"/>
-            <circle cx="40" cy="45" r="1.2" fill="#1a1a18" opacity="0.7"/>
-            <circle cx="25" cy="30" r="1.2" fill="#1a1a18" opacity="0.7"/>
-            <circle cx="55" cy="30" r="1.2" fill="#1a1a18" opacity="0.7"/>
-            <circle cx="29" cy="19" r="1" fill="#1a1a18" opacity="0.5"/>
-            <circle cx="51" cy="19" r="1" fill="#1a1a18" opacity="0.5"/>
-            <circle cx="29" cy="41" r="1" fill="#1a1a18" opacity="0.5"/>
-            <circle cx="51" cy="41" r="1" fill="#1a1a18" opacity="0.5"/>
-            <circle cx="40" cy="10" r="0.8" fill="#1a1a18" opacity="0.3"/>
-            <circle cx="22" cy="19" r="0.8" fill="#1a1a18" opacity="0.3"/>
-            <circle cx="58" cy="19" r="0.8" fill="#1a1a18" opacity="0.3"/>
-            <circle cx="22" cy="41" r="0.8" fill="#1a1a18" opacity="0.3"/>
-            <circle cx="58" cy="41" r="0.8" fill="#1a1a18" opacity="0.3"/>
-            <circle cx="40" cy="6" r="0.6" fill="#1a1a18" opacity="0.15"/>
-            <circle cx="18" cy="15" r="0.6" fill="#1a1a18" opacity="0.15"/>
-            <circle cx="62" cy="15" r="0.6" fill="#1a1a18" opacity="0.15"/>
-            <circle cx="18" cy="45" r="0.6" fill="#1a1a18" opacity="0.15"/>
-            <circle cx="62" cy="45" r="0.6" fill="#1a1a18" opacity="0.15"/>
-            <circle cx="14" cy="30" r="0.6" fill="#1a1a18" opacity="0.15"/>
-            <circle cx="66" cy="30" r="0.6" fill="#1a1a18" opacity="0.15"/>
-            <path d="M40 24 L41.5 28.5 L46 30 L41.5 31.5 L40 36 L38.5 31.5 L34 30 L38.5 28.5 Z" fill="#1a1a18"/>
-            <rect x="38.5" y="42" width="3" height="18" rx="0.5" fill="#1a1a18"/>
-            <rect x="41.5" y="54" width="5" height="2.5" rx="0.5" fill="#1a1a18"/>
-            <rect x="41.5" y="58" width="3.5" height="2.5" rx="0.5" fill="#1a1a18"/>
+            <circle cx="40" cy="30" r="2" fill="#1a1a18" />
+            <circle cx="40" cy="22" r="1.8" fill="#1a1a18" />
+            <circle cx="40" cy="38" r="1.8" fill="#1a1a18" />
+            <circle cx="32" cy="30" r="1.8" fill="#1a1a18" />
+            <circle cx="48" cy="30" r="1.8" fill="#1a1a18" />
+            <circle cx="34" cy="23" r="1.5" fill="#1a1a18" />
+            <circle cx="46" cy="23" r="1.5" fill="#1a1a18" />
+            <circle cx="34" cy="37" r="1.5" fill="#1a1a18" />
+            <circle cx="46" cy="37" r="1.5" fill="#1a1a18" />
+            <circle cx="40" cy="15" r="1.2" fill="#1a1a18" opacity="0.7" />
+            <circle cx="40" cy="45" r="1.2" fill="#1a1a18" opacity="0.7" />
+            <circle cx="25" cy="30" r="1.2" fill="#1a1a18" opacity="0.7" />
+            <circle cx="55" cy="30" r="1.2" fill="#1a1a18" opacity="0.7" />
+            <circle cx="29" cy="19" r="1" fill="#1a1a18" opacity="0.5" />
+            <circle cx="51" cy="19" r="1" fill="#1a1a18" opacity="0.5" />
+            <circle cx="29" cy="41" r="1" fill="#1a1a18" opacity="0.5" />
+            <circle cx="51" cy="41" r="1" fill="#1a1a18" opacity="0.5" />
+            <circle cx="40" cy="10" r="0.8" fill="#1a1a18" opacity="0.3" />
+            <circle cx="22" cy="19" r="0.8" fill="#1a1a18" opacity="0.3" />
+            <circle cx="58" cy="19" r="0.8" fill="#1a1a18" opacity="0.3" />
+            <circle cx="22" cy="41" r="0.8" fill="#1a1a18" opacity="0.3" />
+            <circle cx="58" cy="41" r="0.8" fill="#1a1a18" opacity="0.3" />
+            <circle cx="40" cy="6" r="0.6" fill="#1a1a18" opacity="0.15" />
+            <circle cx="18" cy="15" r="0.6" fill="#1a1a18" opacity="0.15" />
+            <circle cx="62" cy="15" r="0.6" fill="#1a1a18" opacity="0.15" />
+            <circle cx="18" cy="45" r="0.6" fill="#1a1a18" opacity="0.15" />
+            <circle cx="62" cy="45" r="0.6" fill="#1a1a18" opacity="0.15" />
+            <circle cx="14" cy="30" r="0.6" fill="#1a1a18" opacity="0.15" />
+            <circle cx="66" cy="30" r="0.6" fill="#1a1a18" opacity="0.15" />
+            <path d="M40 24 L41.5 28.5 L46 30 L41.5 31.5 L40 36 L38.5 31.5 L34 30 L38.5 28.5 Z" fill="#1a1a18" />
+            <rect x="38.5" y="42" width="3" height="18" rx="0.5" fill="#1a1a18" />
+            <rect x="41.5" y="54" width="5" height="2.5" rx="0.5" fill="#1a1a18" />
+            <rect x="41.5" y="58" width="3.5" height="2.5" rx="0.5" fill="#1a1a18" />
           </svg>
         </div>
 
@@ -552,7 +704,8 @@
     </div>
 
     <p class="description">
-      Before Keys is where real estate meets social. We help developers <strong>launch, market, and sell</strong> new build projects through strategic content and social media campaigns that convert followers into future homeowners.
+      We help developers <strong>launch, market, and sell</strong> new build projects through strategic content and
+      social media campaigns that convert followers into future homeowners.
     </p>
 
     <div class="construction-wrap">
@@ -825,4 +978,5 @@
 
   </script>
 </body>
+
 </html>
