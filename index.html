@@ -273,11 +273,6 @@
       color: var(--ink);
     }
 
-    .cipher-char {
-      display: inline-block;
-      min-width: 0.25em;
-    }
-
     /* ---- UNDER CONSTRUCTION ---- */
     .construction-wrap {
       position: relative;
@@ -556,7 +551,7 @@
       <span></span><span></span><span></span>
     </div>
 
-    <p class="description" id="cipherText" data-text="Before Keys is where real estate meets social. We help developers launch, market, and sell new build projects through strategic content and social media campaigns that convert followers into future homeowners.">
+    <p class="description">
       Before Keys is where real estate meets social. We help developers <strong>launch, market, and sell</strong> new build projects through strategic content and social media campaigns that convert followers into future homeowners.
     </p>
 
@@ -586,7 +581,7 @@
   </div>
 
   <script>
-    // ---- HALFTONE DOT BACKGROUND ----
+    // ---- ARCHITECTURAL PARTICLES BACKGROUND ----
     const canvas = document.getElementById('halftone');
     const ctx = canvas.getContext('2d');
     let w, h, cols, rows;
@@ -594,6 +589,50 @@
     const INK = [26, 26, 24];
     let mouse = { x: -1000, y: -1000 };
     let time = 0;
+
+    // Building silhouettes defined as regions where dots cluster denser
+    let buildings = [];
+    let particles = [];
+
+    function generateBuildings() {
+      buildings = [];
+      const count = Math.floor(w / 120) + 2;
+      let x = -20;
+      for (let i = 0; i < count; i++) {
+        const bw = 40 + Math.random() * 80;
+        const bh = 60 + Math.random() * (h * 0.35);
+        const floors = Math.floor(bh / 20);
+        buildings.push({
+          x: x,
+          y: h - bh,
+          w: bw,
+          h: bh,
+          floors: floors,
+          windows: Math.floor(bw / 18),
+          drift: Math.random() * 100 // phase offset for subtle animation
+        });
+        x += bw + 8 + Math.random() * 30;
+      }
+    }
+
+    // Floating construction particles (tiny bricks, beams, dots)
+    function generateParticles() {
+      particles = [];
+      const count = Math.floor((w * h) / 18000);
+      for (let i = 0; i < count; i++) {
+        particles.push({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          type: Math.random() < 0.4 ? 'brick' : (Math.random() < 0.5 ? 'beam' : 'dot'),
+          size: 1.5 + Math.random() * 3,
+          speed: 0.08 + Math.random() * 0.15,
+          drift: Math.random() * Math.PI * 2,
+          driftSpeed: 0.002 + Math.random() * 0.004,
+          alpha: 0.03 + Math.random() * 0.06,
+          rotation: Math.random() * Math.PI
+        });
+      }
+    }
 
     function resize() {
       const dpr = window.devicePixelRatio || 1;
@@ -606,12 +645,38 @@
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       cols = Math.ceil(w / GRID) + 1;
       rows = Math.ceil(h / GRID) + 1;
+      generateBuildings();
+      generateParticles();
+    }
+
+    // Check if a point is inside any building silhouette
+    function getBuildingInfluence(x, y) {
+      for (const b of buildings) {
+        if (x >= b.x && x <= b.x + b.w && y >= b.y && y <= b.y + b.h) {
+          // Stronger influence near edges (outline effect)
+          const insetX = Math.min(x - b.x, b.x + b.w - x);
+          const insetY = Math.min(y - b.y, b.y + b.h - y);
+          const inset = Math.min(insetX, insetY);
+          // Window pattern
+          const localX = x - b.x;
+          const localY = y - b.y;
+          const isWindowCol = (localX % 18) > 5 && (localX % 18) < 13;
+          const isWindowRow = (localY % 20) > 6 && (localY % 20) < 16;
+          const isWindow = isWindowCol && isWindowRow && localY > 12;
+
+          if (inset < 6) return { strength: 0.7, isEdge: true, isWindow: false };
+          if (isWindow) return { strength: 0.15, isEdge: false, isWindow: true };
+          return { strength: 0.35, isEdge: false, isWindow: false };
+        }
+      }
+      return { strength: 0, isEdge: false, isWindow: false };
     }
 
     function draw() {
       time += 0.003;
       ctx.clearRect(0, 0, w, h);
 
+      // Draw dot grid with building silhouette influence
       for (let row = 0; row < rows; row++) {
         for (let col = 0; col < cols; col++) {
           const x = col * GRID;
@@ -633,16 +698,72 @@
           const mouseInfluence = Math.max(0, 1 - mouseDist / 150);
 
           const edgeFade = distCenter / maxDist;
-          const baseR = 0.3 + edgeFade * 1.2 + ringWave * 0.8;
-          const r = Math.max(0.2, Math.min(baseR + mouseInfluence * 2, GRID * 0.42));
 
-          const alpha = 0.03 + edgeFade * 0.06 + ringWave * 0.04 + mouseInfluence * 0.15;
+          // Building influence
+          const building = getBuildingInfluence(x, y);
+          const buildPulse = building.strength > 0 ? Math.sin(time * 2 + x * 0.01) * 0.02 : 0;
+
+          let baseR = 0.3 + edgeFade * 1.2 + ringWave * 0.8;
+          let alpha = 0.03 + edgeFade * 0.06 + ringWave * 0.04 + mouseInfluence * 0.15;
+
+          if (building.isEdge) {
+            baseR += 1.5;
+            alpha += 0.08 + buildPulse;
+          } else if (building.strength > 0 && !building.isWindow) {
+            baseR += building.strength * 1.2;
+            alpha += building.strength * 0.05 + buildPulse;
+          } else if (building.isWindow) {
+            baseR *= 0.6;
+            alpha *= 0.5;
+          }
+
+          const r = Math.max(0.2, Math.min(baseR + mouseInfluence * 2, GRID * 0.42));
 
           ctx.beginPath();
           ctx.arc(x, y, r, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(${INK[0]},${INK[1]},${INK[2]},${Math.min(alpha, 0.25)})`;
+          ctx.fillStyle = `rgba(${INK[0]},${INK[1]},${INK[2]},${Math.min(alpha, 0.3)})`;
           ctx.fill();
         }
+      }
+
+      // Draw floating construction particles
+      for (const p of particles) {
+        p.drift += p.driftSpeed;
+        p.y -= p.speed;
+        p.x += Math.sin(p.drift) * 0.3;
+        p.rotation += 0.003;
+
+        // Reset when off-screen
+        if (p.y < -10) {
+          p.y = h + 10;
+          p.x = Math.random() * w;
+        }
+
+        // Mouse push
+        const mdx = p.x - mouse.x;
+        const mdy = p.y - mouse.y;
+        const mDist = Math.sqrt(mdx * mdx + mdy * mdy);
+        if (mDist < 100) {
+          const push = (1 - mDist / 100) * 0.8;
+          p.x += (mdx / mDist) * push;
+          p.y += (mdy / mDist) * push;
+        }
+
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.rotation);
+        ctx.fillStyle = `rgba(${INK[0]},${INK[1]},${INK[2]},${p.alpha})`;
+
+        if (p.type === 'brick') {
+          ctx.fillRect(-p.size, -p.size * 0.5, p.size * 2, p.size);
+        } else if (p.type === 'beam') {
+          ctx.fillRect(-p.size * 1.5, -0.5, p.size * 3, 1);
+        } else {
+          ctx.beginPath();
+          ctx.arc(0, 0, p.size * 0.4, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        ctx.restore();
       }
 
       requestAnimationFrame(draw);
@@ -702,49 +823,6 @@
 
     updateOrbitBlur();
 
-    // ---- CIPHER DECODE EFFECT ----
-    (function cipherDecode() {
-      const el = document.getElementById('cipherText');
-      const finalText = el.getAttribute('data-text');
-      const glyphs = '&#%@$!?*+=/\\|~<>[]{}0123456789';
-      const len = finalText.length;
-      let revealed = 0;
-
-      function scrambleRemaining() {
-        let html = '';
-        for (let i = 0; i < len; i++) {
-          if (finalText[i] === ' ') {
-            html += ' ';
-          } else if (i < revealed) {
-            const boldStart = finalText.indexOf('story, strategy & content');
-            const boldEnd = boldStart + 'story, strategy & content'.length;
-            if (i >= boldStart && i < boldEnd) {
-              if (i === boldStart) html += '<strong>';
-              html += finalText[i];
-              if (i === boldEnd - 1) html += '</strong>';
-            } else {
-              html += finalText[i];
-            }
-          } else {
-            html += '<span class="cipher-char">' + glyphs[Math.floor(Math.random() * glyphs.length)] + '</span>';
-          }
-        }
-        el.innerHTML = html;
-      }
-
-      setTimeout(() => {
-        const interval = setInterval(() => {
-          revealed += 1 + Math.floor(Math.random() * 2);
-          if (revealed >= len) {
-            revealed = len;
-            clearInterval(interval);
-            el.innerHTML = 'We craft the <strong>story, strategy & content</strong> that sells homes before the first key is handed over.';
-          }
-          scrambleRemaining();
-        }, 40);
-        scrambleRemaining();
-      }, 1200);
-    })();
   </script>
 </body>
 </html>
